@@ -2,6 +2,8 @@
 
 This repository provides an implementation of the Transactional Outbox Pattern using DynamoDB and Kinesis Streams, offering a solution to the challenges posed by the CAP theorem in distributed systems.
 
+## Full article can be found [here](https://medium.com/@karim.bouddha/the-transactional-outbox-pattern-with-dynamodb-and-kinesis-streams-a-cap-theorem-solution-a4ff9227fe3c)
+
 ## Overview
 
 In distributed systems, the CAP theorem dictates that only two out of the three guarantees: Consistency, Availability, and Partition tolerance can be achieved. This project showcases how the Transactional Outbox Pattern, combined with DynamoDB Streams and Kinesis Streams, can effectively navigate these constraints.
