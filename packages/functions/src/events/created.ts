@@ -9,7 +9,13 @@ export const handler = async (event: KinesisStreamEvent) => {
     );
     const jsonPayload = JSON.parse(payload);
 
-    console.log(jsonPayload.dynamodb.NewImage);
+    console.log(
+      `Order creation event received: ${JSON.stringify(
+        jsonPayload.dynamodb.NewImage,
+        null,
+        2
+      )}`
+    );
 
     // TODO: Process the event data ....
   }

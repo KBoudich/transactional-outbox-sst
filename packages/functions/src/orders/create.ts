@@ -1,13 +1,13 @@
 import { ApiHandler } from "sst/node/api";
-import DynamoDB from "aws-sdk/clients/dynamodb";
+import { DynamoDB } from "@aws-sdk/client-dynamodb";
+import { DynamoDBDocument } from "@aws-sdk/lib-dynamodb";
 import { ulid } from "ulid";
 import { Table } from "sst/node/table";
 
 export const handler = ApiHandler(async (event) => {
   const data = JSON.parse(event.body!);
   const orderId = ulid();
-  console.log(Table.orders.tableName);
-  console.log(Table.events.tableName);
+
   const params = {
     TransactItems: [
       {
@@ -34,8 +34,10 @@ export const handler = ApiHandler(async (event) => {
   };
 
   try {
-    const client = new DynamoDB.DocumentClient();
-    await client.transactWrite(params).promise();
+    const client = new DynamoDB({});
+    const ddbDocClient = DynamoDBDocument.from(client);
+
+    await ddbDocClient.transactWrite(params);
     console.log("Transaction Successful!");
   } catch (err) {
     console.error("Error executing transaction:", err);

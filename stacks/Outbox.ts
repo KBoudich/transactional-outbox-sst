@@ -1,17 +1,17 @@
 import { StackContext, Api, Table, KinesisStream } from "sst/constructs";
 
 export function OUTBOX({ stack }: StackContext) {
+  const stream = new KinesisStream(stack, "Stream", {
+    consumers: {
+      created: "packages/functions/src/events/created.handler",
+    },
+  });
+
   const orderTable = new Table(stack, "orders", {
     fields: {
       orderId: "string",
     },
     primaryIndex: { partitionKey: "orderId" },
-  });
-
-  const stream = new KinesisStream(stack, "Stream", {
-    consumers: {
-      created: "packages/functions/src/events/created.handler",
-    },
   });
 
   const eventTable = new Table(stack, "events", {
